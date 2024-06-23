@@ -1,0 +1,24 @@
+# .travis.yml for Frontend (React)
+language: node_js
+node_js:
+  - "14"
+cache:
+  directories:
+    - node_modules
+branches:
+  only:
+    - master
+    - main
+jobs:
+  include:
+    - stage: Build
+      script:
+        - npm install
+        - npm run build
+    - stage: Test
+      script:
+        - npm test -- --coverage
+    - stage: Deploy
+      script:
+        - echo "Deploying to production..."
+      if: branch = master OR branch = main
